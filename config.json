@@ -1,0 +1,7 @@
+{
+  "AllowedKickRoles": "Helper;Helpers;Moderators;Mod;Admin;Administrator;Developer;Developers",
+  "AllowedKickRolesID": "",
+  "AllowedBanRoles": "Moderators;Mod;Admin;Administrator;Developer;Developers",
+  "AllowedBanRolesID": "",
+  "PreferIDOverRoleNames": "false"
+}
