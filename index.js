@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-/* Sql shit*/
+/* Sql shit */
 const sql = require('./Sql/SqlObject');
 const sqlObj = new sql();
 
