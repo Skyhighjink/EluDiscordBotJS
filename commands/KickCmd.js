@@ -12,7 +12,7 @@ module.exports = {
     var data = JSON.parse(fs.readFileSync('./config.json'));
 
     var cmd = args[0].toLowerCase().charAt(0).toUpperCase() + args[0].slice(1);
-    console.log(cmd);
+
     var roles = data[`Allowed${cmd}Roles`].split(';');
     if(data[`Allowed${cmd}RolesID`] && data['PreferIDOverRoleNames'].toLowerCase() == 'true') roles = data[`Allowed${cmd}RolesID`].split(';');
 
