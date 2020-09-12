@@ -63,7 +63,28 @@ class Sql {
   }
 
   RetrievePunishments(targetId, callback){
-    
+    mssql.connect(this.config, function(err){
+      if(err) console.log(err);
+      // Builds query
+      var query = "SELECT TOP(5) * FROM [Punishment] ";
+      if(targetId) query += `WHERE [PunishedDiscordID] = '${targetId}'`;
+      query += " ORDER BY [PunishmentDate] DESC";
+      
+      // Sends query
+      var req = new mssql.Request();
+      req.query(query, function(err, data){
+        if(err) console.log(err) 
+          mssql.close();
+        
+        var toReturn = [];
+
+        for(var x = 0; x < data.recordset.length; x++){
+          toReturn.push([data.recordset[x].PunishedDiscordID, data.recordset[x].PunisherDiscordID, data.recordset[x].Action, data.recordset[x].Reason, data.recordset[x].PunishmentDate]);
+        }
+
+        return callback(toReturn);
+      });
+    });
   }
 }
 
