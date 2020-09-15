@@ -12,6 +12,11 @@ module.exports = {
     const Discord = require('discord.js');
     const RoleUtil = require('../Util/HasCorrectRole');
 
+    /* Variables used often */
+    const target = message.mentions.members.first();
+    const authorUsername = message.author.username;
+    const currGuild = message.guild;
+
     // Gets command and formats it with capital first letter.
     var cmd = args[0].toLowerCase().charAt(0).toUpperCase() + args[0].slice(1).toLowerCase();
 
@@ -31,21 +36,21 @@ module.exports = {
     }
 
     // Formats a kick message to send to user.
-    var kickMsg = `You have been ${msgCmd} from ${message.guild.name} by ${message.author.username} for '${args.slice(sliceAmount).join(' ')}'`;
+    var kickMsg = `You have been ${msgCmd} from ${currGuild.name} by ${authorUsername} for '${args.slice(sliceAmount).join(' ')}'`;
 
     // Checks to see if a DM Channel has been made. If not, creates one.
-    if(!message.mentions.members.first().user.dmChannel) await message.mentions.members.first().createDM();
+    if(!target.user.dmChannel) await target.createDM();
     
     // Sends a member message, then punishes the member as requested by the user.
-    await message.mentions.members.first().user.dmChannel.send(kickMsg);
-    if(msgCmd == "banned") message.guild.members.ban(message.mentions.members.first(), { reason: args.slice(sliceAmount).join(' ')});
-    else message.guild.member(message.mentions.members.first()).kick(message.mentions.members.first(), { reason: args.slice(sliceAmount).join(' ')});
+    await target.user.dmChannel.send(kickMsg);
+    if(msgCmd == "banned") currGuild.members.ban(target, { reason: args.slice(sliceAmount).join(' ')});
+    else currGuild.member(target).kick(target, { reason: args.slice(sliceAmount).join(' ')});
 
     // If silent wasn't an option the sender opted for, it sends a message in the discord channel the command was send inside of.
-    if(!silent) await message.channel.send(`${message.mentions.members.first().user.username} has been ${msgCmd} by ${message.author.username} for ${args.slice(sliceAmount).join(' ')}`);
+    if(!silent) await message.channel.send(`${target.user.username} has been ${msgCmd} by ${authorUsername} for ${args.slice(sliceAmount).join(' ')}`);
 
     // Logs the user's punishment in the
     let sqlObj = new sql();
-    sqlObj.InsertPunishment(message.mentions.members.first().id, message.author.id, cmd, args.slice(sliceAmount).join(' '));
+    sqlObj.InsertPunishment(target.id, message.author.id, cmd, args.slice(sliceAmount).join(' '));
   }
 };

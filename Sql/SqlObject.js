@@ -62,7 +62,7 @@ class Sql {
     });
   }
 
-  RetrievePunishments(targetId, callback){
+  async RetrievePunishments(targetId, callback){
     mssql.connect(this.config, function(err){
       if(err) console.log(err);
       // Builds query

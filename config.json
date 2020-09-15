@@ -3,7 +3,7 @@
   "AllowedKickRolesID": "",
   "AllowedBanRoles": "Moderators;Mod;Admin;Administrator;Developer;Developers",
   "AllowedBanRolesID": "",
-  "AllowedAccessHistoryRoles" : "",
+  "AllowedAccessHistoryRoles" : "Moderators;Mod;Admin;Administrator;Developer;Developers",
   "AllowedAccessHistoryRolesID": "",
   "PreferIDOverRoleNames": "false"
 }
