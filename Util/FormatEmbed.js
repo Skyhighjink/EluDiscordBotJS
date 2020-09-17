@@ -13,12 +13,8 @@ function BuildEmbed(message){
 }
 
 function GetField(message){
-  if(message){
-    return `Punished: '${message[0]}'\nPunisher: '${message[1]}'\nAction: '${message[2]}'\nMessage/Reason: '${message[3]}'\nDate of Punishment: '${message[4].toISOString().replace(/T/, ' ').replace(/\..+/, '')}'\n\n`
-  }
-  else{
-    return 'EMPTY';
-  }
+  if(message) return `Punished: '${message[0]}'\nPunisher: '${message[1]}'\nAction: '${message[2]}'\nMessage/Reason: '${message[3]}'\nDate of Punishment: '${message[4].toISOString().replace(/T/, ' ').replace(/\..+/, '')}'\n\n`
+  else return 'EMPTY';
 }
 
 module.exports.BuildEmbed = BuildEmbed;

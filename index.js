@@ -29,19 +29,27 @@ files.forEach(file => {
   }
 });
 
-client.on('ready', () => { console.log(`${client.user.tag} is ready`); });
+client.on('ready', () => { 
+  var internal = setInterval(function() {
+    console.log(`test : seconds - ${new Date().getSeconds()} : ms - ${new Date().getMilliseconds()}`)}, 1000);
+    
+  console.log(`${client.user.tag} is ready`); 
+});
 
 /* Command Handler*/
 client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const cmd = args.shift().toLowerCase();
 
+  const aliases = client.aliases;
+  const commands = client.commands;
+
   let command;
 
   /* Checks if author is bot -> Grabs command from correct collection*/
   if(message.author.bot || !message.guild || !message.content.startsWith(prefix)) return;
-  if(client.commands.has(cmd)) command = client.commands.get(cmd);
-  else if(client.aliases.has(cmd)) command = client.commands.get(client.aliases.get(cmd));
+  if(commands.has(cmd)) command = command.get(cmd);
+  else if(aliases.has(cmd)) command = command.get(aliases.get(cmd));
   
   // Adds command to the start of the array
   args.unshift(cmd);

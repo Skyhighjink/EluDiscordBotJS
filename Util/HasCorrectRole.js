@@ -24,7 +24,7 @@ async function HasRole(configOption, message, needToCompare){
 
   if(needToCompare){
     await Promise.all([message.guild.members.fetch(message.mentions.users.first().id), message.guild.members.fetch(message.author.id)]).then((values) => {
-      if(values[0].roles.highest.position >= values[1].roles.highest.position) return false;
+      return values[0].roles.highest.position < values[1].roles.highest.position;
     });
   }
 
